@@ -1,7 +1,6 @@
 package menjacnica.gui;
 
 import java.awt.BorderLayout;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -21,6 +20,7 @@ import java.awt.Toolkit;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JMenu;
 import javax.swing.ImageIcon;
@@ -43,8 +43,11 @@ import javax.swing.border.TitledBorder;
 
 
 
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -70,6 +73,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JTextArea textArea;
 	protected Component frame;
 	
+	private static MenjacnicaGUI menjacnica = new MenjacnicaGUI();
 
 	/**
 	 * Launch the application.
@@ -91,6 +95,15 @@ public class MenjacnicaGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MenjacnicaGUI() {
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent arg0) {
+				ugasiAplikaciju();
+			}
+		});
+		
+		
+		
+		
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenjacnicaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/menu.gif")));
 		setTitle("Menjacnica");
@@ -111,7 +124,7 @@ public class MenjacnicaGUI extends JFrame {
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser jFile = new JFileChooser();
-				int returnVal = jFile.showOpenDialog(frame);
+				int returnVal = jFile.showOpenDialog(contentPane);
 				
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 	
@@ -135,6 +148,13 @@ public class MenjacnicaGUI extends JFrame {
 		mnFile.add(mntmSave);
 		
 		mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+		
+				ugasiAplikaciju();
+					
+			}
+		});
 		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
 		mnFile.add(mntmExit);
 		
@@ -142,6 +162,13 @@ public class MenjacnicaGUI extends JFrame {
 		menuBar.add(mnHelp);
 		
 		mntmAbout = new JMenuItem("About");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(contentPane,
+						"Autor: Marija Antic, Verzija 1.0", "O programu",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		mntmAbout.setIcon(null);
 		mnHelp.add(mntmAbout);
 		
@@ -185,21 +212,22 @@ public class MenjacnicaGUI extends JFrame {
 		popupMenu.add(mntmI);
 		
 		panel = new JPanel();
-		panel.setPreferredSize(new Dimension(115, 10));
+		panel.setPreferredSize(new Dimension(130, 10));
 		contentPane.add(panel, BorderLayout.EAST);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnNewButton = new JButton("Dodaj kurs");
-		btnNewButton.setPreferredSize(new Dimension(100, 26));
+		btnNewButton.setPreferredSize(new Dimension(120, 26));
 		btnNewButton.setSize(new Dimension(100, 26));
 		panel.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("Obrisi kurs");
-		btnNewButton_1.setPreferredSize(new Dimension(100, 26));
+		btnNewButton_1.setPreferredSize(new Dimension(120, 26));
 		btnNewButton_1.setSize(new Dimension(100, 26));
 		panel.add(btnNewButton_1);
 		
 		btnNewButton_2 = new JButton("Izvrsi zamenu");
+		btnNewButton_2.setPreferredSize(new Dimension(120, 26));
 		panel.add(btnNewButton_2);
 		
 		panel_1 = new JPanel();
@@ -210,6 +238,7 @@ public class MenjacnicaGUI extends JFrame {
 		panel_1.add(scrollPane_1);
 		
 		textArea = new JTextArea();
+		textArea.setPreferredSize(new Dimension(350, 16));
 		scrollPane_1.add(textArea);
 	}
 
@@ -232,5 +261,15 @@ public class MenjacnicaGUI extends JFrame {
 	}
 	
 	
+		public static void ugasiAplikaciju() {
+			int opcija = JOptionPane.showConfirmDialog(menjacnica.getContentPane(),
+					"Da li ZAISTA zelite da izadjete iz aplikacije", "Izlazak",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+
+			if (opcija == JOptionPane.YES_OPTION)
+				System.exit(0);
+			
+			else return;
+		}
+	}
 	
-}
