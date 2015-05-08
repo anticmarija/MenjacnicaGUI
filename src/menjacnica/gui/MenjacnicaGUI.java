@@ -1,6 +1,7 @@
 package menjacnica.gui;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,27 +10,41 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.FlowLayout;
+
 import javax.swing.JButton;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+
 import javax.swing.JPopupMenu;
+
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -53,6 +68,8 @@ public class MenjacnicaGUI extends JFrame {
 	private JPanel panel_1;
 	private JScrollPane scrollPane_1;
 	private JTextArea textArea;
+	protected Component frame;
+	
 
 	/**
 	 * Launch the application.
@@ -74,6 +91,7 @@ public class MenjacnicaGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MenjacnicaGUI() {
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenjacnicaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/menu.gif")));
 		setTitle("Menjacnica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,6 +108,23 @@ public class MenjacnicaGUI extends JFrame {
 		menuBar.add(mnFile);
 		
 		mntmOpen = new JMenuItem("Open");
+		mntmOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser jFile = new JFileChooser();
+				int returnVal = jFile.showOpenDialog(frame);
+				
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+	
+					try {
+					textArea.append("Ucitan fajl: " +jFile.getSelectedFile().getAbsolutePath());;
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+					
+			}
+		});
 		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		mntmOpen.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/com/sun/java/swing/plaf/windows/icons/NewFolder.gif")));
 		mnFile.add(mntmOpen);
@@ -195,4 +230,7 @@ public class MenjacnicaGUI extends JFrame {
 			}
 		});
 	}
+	
+	
+	
 }
