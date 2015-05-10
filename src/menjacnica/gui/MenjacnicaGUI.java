@@ -22,7 +22,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
@@ -36,7 +35,6 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
@@ -233,6 +231,12 @@ public class MenjacnicaGUI extends JFrame {
 		popupMenu.add(mntmObrisiKurs);
 		
 		mntmI = new JMenuItem("Izvrsi zamenu");
+		mntmI.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				IzvrsiZamenuGUI prozor = new IzvrsiZamenuGUI();
+				prozor.setVisible(true);
+			}
+		});
 		popupMenu.add(mntmI);
 		
 		panel = new JPanel();
@@ -264,6 +268,12 @@ public class MenjacnicaGUI extends JFrame {
 		panel.add(btnNewButton_1);
 		
 		btnNewButton_2 = new JButton("Izvrsi zamenu");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				IzvrsiZamenuGUI prozor = new IzvrsiZamenuGUI();
+				prozor.setVisible(true);
+			}
+		});
 		btnNewButton_2.setPreferredSize(new Dimension(120, 26));
 		panel.add(btnNewButton_2);
 		
