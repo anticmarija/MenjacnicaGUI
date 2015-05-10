@@ -2,6 +2,7 @@ package menjacnica.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.TextArea;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -44,6 +45,7 @@ import javax.swing.border.TitledBorder;
 
 
 
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -71,6 +73,16 @@ public class MenjacnicaGUI extends JFrame {
 	private JPanel panel_1;
 	private JScrollPane scrollPane_1;
 	private JTextArea textArea;
+	
+	
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
+	}
+
 	protected Component frame;
 	
 
@@ -85,6 +97,10 @@ public class MenjacnicaGUI extends JFrame {
 				try {
 					MenjacnicaGUI frame = new MenjacnicaGUI();
 					frame.setVisible(true);
+					
+					frame.getTextArea().append("");
+					
+				
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -208,6 +224,12 @@ public class MenjacnicaGUI extends JFrame {
 		popupMenu.add(mntmDodajKurs);
 		
 		mntmObrisiKurs = new JMenuItem("Obrisi kurs");
+		mntmObrisiKurs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ObrisiKursGUI prozor = new ObrisiKursGUI();
+				prozor.setVisible(true);
+			}
+		});
 		popupMenu.add(mntmObrisiKurs);
 		
 		mntmI = new JMenuItem("Izvrsi zamenu");
@@ -231,6 +253,12 @@ public class MenjacnicaGUI extends JFrame {
 		panel.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("Obrisi kurs");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ObrisiKursGUI prozor = new ObrisiKursGUI();
+				prozor.setVisible(true);
+			}
+		});
 		btnNewButton_1.setPreferredSize(new Dimension(120, 26));
 		btnNewButton_1.setSize(new Dimension(100, 26));
 		panel.add(btnNewButton_1);
@@ -281,7 +309,9 @@ public class MenjacnicaGUI extends JFrame {
 			else return;
 		}
 		
-		
+		public void dodajUTextArea (String tekst) {
+			textArea.append(tekst);
+		}
 		
 	}
 	
